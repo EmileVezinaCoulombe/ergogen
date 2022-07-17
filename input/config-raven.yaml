@@ -1,0 +1,191 @@
+points:
+  key:
+    padding: cy
+    tags:
+      1u: true
+    footprints:
+      choc_hotswap:
+        type: choc
+        nets:
+          from: =column_net
+          to: GND
+        params:
+          keycaps: true
+          reverse: true
+          hotswap: true
+      choc:
+        type: choc
+        anchor:
+          rotate: 180
+        nets:
+          from: =column_net
+          to: GND
+        params:
+          keycaps: true
+          reverse: true
+  zones:
+    board:
+      rows:
+        bottom:
+          bind: [2,2,2,2]
+        home:
+          bind: [2,2,2,2]
+        top:
+          bind: [2,2,2,2]
+      columns:
+        pinkie:
+          spread: cx
+          rows:
+            top:
+              column_net: P2
+            home:
+              column_net: P16
+            bottom:
+              column_net: P20
+        ring:
+          spread: cx
+          stagger: 10
+          rows:
+            top: 
+              column_net: P3        
+            home:
+              column_net: P10
+            bottom:
+              column_net: P19
+        middle:
+          spread: cx
+          stagger: 5
+          rows:
+            top:
+              column_net: P4
+            home:
+              column_net: P9
+            bottom:
+              column_net: P18
+        index:
+          spread: cx
+          stagger: -8
+          rows: 
+            top:
+              column_net: P5
+            home:
+              column_net: P8
+            bottom:
+              column_net: P15
+        far:
+          spread: cx
+          stagger: -0
+          rows:
+            top:
+              column_net: P6
+            home:
+              bind: [2,28,2,2]
+              column_net: P7
+            bottom:
+              bind: [0,28,16,2]
+              column_net: P14
+    thumb:
+      anchor:
+        ref: board_far_home
+        shift: [0, -2u - 3]
+        rotate: -105
+      rows:
+        home:
+          column_net: P1
+          bind: [2,2,2,2]
+          rotate: 90
+        bottom:
+          column_net: P21
+          bind: [2,2,2,2]
+          rotate: 90
+      columns:
+        inner:
+outlines:
+  exports:
+    raw:
+      - type: keys
+        side: left
+        size: [1cx + 0.0 , 1cx -0.5]
+    cutout:
+      - type: outline
+        name: raw
+        fillet: 2
+    keycap_outlines:
+      - type: keys
+        side: left
+        size: [1cx - 0.5, 1cy - 0.5] # Choc keycaps are 17.5 x 16.5
+        bound: false    
+        tags: [1u]
+pcbs:
+  pcb:
+    outlines:
+      board:
+        outline: cutout
+      keycaps:
+        outline: cutout
+        layer: Eco1.User
+    footprints:
+      promicro:
+        type: promicro_pretty
+        anchor:
+          ref: board_far_home
+          shift: [23, -10]
+          rotate: -90
+      pcm12:
+        type: pcm12 # slider
+        anchor:
+          ref: board_far_home
+          shift: [35,-33]
+          rotate: 90
+        nets:
+          from: pos  
+          to: RAW
+        params:
+          reverse: true 
+      via3:
+        type: via
+        anchor: 
+          ref: board_far_home
+          shift: [31,-30]
+        nets: 
+          net: RAW 
+      via4:
+        type: via
+        anchor: 
+          ref: board_far_home
+          shift: [29,-30]
+        nets: 
+          net: pos 
+      via5:
+        type: via
+        anchor: 
+          ref: board_far_home
+          shift: [29,-38]
+        nets: 
+          net: GND 
+      via6:
+        type: via
+        anchor: 
+          ref: board_far_home
+          shift: [31,-38]
+        nets: 
+          net: RST 
+      b3u1000p: # reset
+        type: b3u1000p
+        nets:
+          r1: RST  
+          r2: GND
+        anchor:
+          ref: board_far_home
+          shift: [27,-33]
+          rotate: 90
+        params:
+          reverse: true 
+      bat: # Battery
+        type: bat
+        nets: 
+          neg: GND
+        anchor:
+          ref: board_far_home
+          shift: [15, -30]
+          rotate: 180
